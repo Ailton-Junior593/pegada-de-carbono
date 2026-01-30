@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pegada de Carbono</title>
+
+  <link rel="stylesheet" href="index.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<header class="header">
+  <button class="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <div class="header-title">
+    <h1>Pegada de Carbono</h1>
+  </div>
+
+  <div class="header-actions">
+    <button class="dark-toggle" onclick="toggleDark()">🌙</button>
+  </div>
+</header>
+
+<nav id="menu-lateral" class="side-menu">
+  <a href="#impactos">Impactos</a>
+  <a href="#calc">Cálculo</a>
+  <a href="#acoes">Ações</a>
+</nav>
+
+<div id="overlay"></div>
+
+<main>
+
+  <div class="sections-row">  
+<section id="calc" class="card animate">
+  <h2>Calcule seu impacto mensal</h2>
+
+  <label>
+    Energia elétrica (kWh/mês)
+    <input id="energia" type="number" placeholder="Ex: 150 kWh/mês">
+  </label>
+
+  <label>
+    Km percorridos (mês)
+    <input id="km" type="number" placeholder="Ex: 300 km/mês">
+  </label>
+
+  <label>
+    Consumo de carne (vezes/semana)
+    <input id="carne" type="number" placeholder="Ex: 10 vezes por semana">
+  </label>
+
+  <label>
+    Lixo produzido (kg/semana)
+    <input id="lixo" type="number" placeholder="Ex: 5 kg por semana">
+  </label>
+
+  <div class="reciclagem-box">
+    <label class="checkbox-item">
+      <input id="recicla" type="checkbox">
+      <span>Pratico reciclagem</span>
+    </label>
+  </div>
+
+  <button id="btnCalcular">Calcular impacto</button>
+
+  <p id="resultado"></p>
+  <p id="anual"></p>
+</section>
+
+<section class="card animate">
+  <h2>Impacto mensal × anual</h2>
+  <canvas id="grafico"></canvas>
+</section>
+
+</div>
+
+<div class="sections-row">
+<section id="impactos" class="card animate">
+  <h2>Por que isso importa?</h2>
+
+  <p>
+    O excesso de carbono na atmosfera intensifica o aquecimento global,
+    desequilibra os ciclos naturais do planeta e contribui para eventos
+    climáticos extremos.
+  </p>
+
+  <p>
+    Ondas de calor, enchentes, secas e o derretimento das calotas polares
+    afetam ecossistemas, a economia e a qualidade de vida.
+  </p>
+
+  <p>
+    Reduzir a pegada de carbono é essencial para um futuro sustentável
+    e equilibrado.
+  </p>
+</section>
+
+<section class="card animate">
+  <h2>Principais causas da emissão de carbono</h2>
+
+  <div class="causas-grid">
+    <div class="causa">
+      <h3>🚗 Transporte</h3>
+      <p>Veículos movidos a combustíveis fósseis liberam grandes quantidades de CO₂.</p>
+    </div>
+
+    <div class="causa">
+      <h3>⚡ Energia</h3>
+      <p>Fontes não renováveis geram emissões significativas.</p>
+    </div>
+
+    <div class="causa">
+      <h3>🥩 Alimentação</h3>
+      <p>A produção de carne é uma das maiores fontes de gases de efeito estufa.</p>
+    </div>
+
+    <div class="causa">
+      <h3>🗑️ Resíduos</h3>
+      <p>O lixo gera metano, um gás mais potente que o CO₂.</p>
+    </div>
+  </div>
+</section>
+
+</div>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
