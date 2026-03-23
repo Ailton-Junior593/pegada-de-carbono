@@ -6,7 +6,23 @@ let menuLateral;
 let overlay;
 let hamburger;
 
+/* ✅ cores dinâmicas */
+function getChartColors() {
+  const isDark = document.body.classList.contains("dark");
+
+  return {
+    textColor: isDark ? "#f1f1f1" : "#222",
+    gridColor: isDark ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)",
+    barColors: isDark
+      ? ["#27ae60", "#2980b9"]
+      : ["#2ecc71", "#3498db"]
+  };
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+
+  /* ✅ REGISTRA O PLUGIN */
+  Chart.register(ChartDataLabels);
 
   menuLateral = document.getElementById("menu-lateral");
   overlay = document.getElementById("overlay");
@@ -22,11 +38,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const grafico = document.getElementById("grafico");
   const btn = document.getElementById("btnCalcular");
 
+  /* ✅ NOVO BOTÃO */
+  const btnReset = document.getElementById("btnReset");
+
+  /* 🌙 toggle dark */
   window.toggleDark = () => {
     document.body.classList.toggle("dark");
-    if (chart) chart.destroy();
+
+    if (chart) {
+      btn.click();
+    }
   };
 
+  /* 📊 CALCULAR */
   btn.addEventListener("click", () => {
     const mensal =
       energia.value * 0.084 +
@@ -40,7 +64,12 @@ document.addEventListener("DOMContentLoaded", () => {
     resultado.classList.add("show");
     anual.classList.add("show");
 
+    /* 🔥 MOSTRA BOTÃO RESET */
+    btnReset.classList.add("show");
+
     if (chart) chart.destroy();
+
+    const colors = getChartColors();
 
     chart = new Chart(grafico, {
       type: "bar",
@@ -48,13 +77,80 @@ document.addEventListener("DOMContentLoaded", () => {
         labels: ["Mensal", "Anual"],
         datasets: [{
           data: [mensal, mensal * 12],
-          backgroundColor: ["#2ecc71", "#3498db"]
+          backgroundColor: colors.barColors
         }]
       },
-      options: { plugins: { legend: { display: false } } }
+      options: {
+        layout: {
+          padding: {
+            top: 30
+          }
+        },
+        plugins: {
+          legend: { display: false },
+
+          datalabels: {
+            anchor: "end",
+            align: "end",
+            offset: -5,
+            color: colors.textColor,
+            font: {
+              weight: "bold",
+              size: 14
+            },
+            formatter: (value) => `${value.toFixed(0)} kg`
+          }
+        },
+        scales: {
+          x: {
+            ticks: {
+              color: colors.textColor
+            },
+            grid: {
+              color: colors.gridColor
+            }
+          },
+          y: {
+            ticks: {
+              color: colors.textColor
+            },
+            grid: {
+              color: colors.gridColor
+            }
+          }
+        }
+      }
     });
   });
 
+  /* 🔄 RESET (NOVO) */
+  btnReset.addEventListener("click", () => {
+
+    // limpar inputs
+    energia.value = "";
+    km.value = "";
+    carne.value = "";
+    lixo.value = "";
+    recicla.checked = false;
+
+    // limpar textos
+    resultado.textContent = "";
+    anual.textContent = "";
+
+    resultado.classList.remove("show");
+    anual.classList.remove("show");
+
+    // esconder botão
+    btnReset.classList.remove("show");
+
+    // destruir gráfico
+    if (chart) {
+      chart.destroy();
+      chart = null;
+    }
+  });
+
+  /* MENU */
   hamburger.addEventListener("click", toggleMenu);
   hamburger.addEventListener("mouseenter", openMenu);
   hamburger.addEventListener("mouseleave", closeMenu);
@@ -65,7 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
   overlay.addEventListener("click", closeMenu);
 });
 
-/* MENU */
+/* MENU FUNÇÕES */
 function openMenu() {
   if (isMobile) return;
   menuLateral.classList.add("open");
@@ -91,8 +187,15 @@ window.addEventListener("resize", () => {
   if (isMobile) closeMenu();
 });
 
+/* ANIMAÇÕES */
 document.addEventListener("DOMContentLoaded", () => {
   const animatedElements = document.querySelectorAll(".animate");
+  
+  document.querySelectorAll(".side-menu a").forEach(link => {
+    link.addEventListener("click", () => {
+      closeMenu();
+    });
+  });
 
   animatedElements.forEach((el, index) => {
     setTimeout(() => {

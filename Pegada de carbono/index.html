@@ -7,6 +7,7 @@
 
   <link rel="stylesheet" href="index.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 </head>
 <body>
 
@@ -37,6 +38,7 @@
 <main>
 
   <div class="sections-row">  
+
 <section id="calc" class="card animate">
   <h2>Calcule seu impacto mensal</h2>
 
@@ -69,13 +71,19 @@
 
   <button id="btnCalcular">Calcular impacto</button>
 
-  <p id="resultado"></p>
-  <p id="anual"></p>
+  <!-- ❌ REMOVIDO DAQUI -->
 </section>
 
 <section class="card animate">
   <h2>Impacto mensal × anual</h2>
   <canvas id="grafico"></canvas>
+
+  <!-- ✅ ADICIONADO AQUI -->
+  <div class="grafico-info">
+    <p id="resultado"></p>
+    <p id="anual"></p>
+    <button id="btnReset">Nova consulta</button>
+  </div>
 </section>
 
 </div>
@@ -126,6 +134,46 @@
     </div>
   </div>
 </section>
+
+<div class="sections-row">
+<section id="acoes" class="card animate">
+  <h2>Como reduzir sua pegada de carbono</h2>
+
+  <div class="acoes-grid">
+
+    <div class="acao">
+      <h3>🚶‍♂️ Transporte consciente</h3>
+      <p>Prefira caminhar, usar bicicleta ou transporte público sempre que possível.</p>
+    </div>
+
+    <div class="acao">
+      <h3>⚡ Economia de energia</h3>
+      <p>Desligue aparelhos, use lâmpadas LED e evite desperdício de energia.</p>
+    </div>
+
+    <div class="acao">
+      <h3>🥗 Alimentação sustentável</h3>
+      <p>Reduza o consumo de carne e priorize alimentos naturais e locais.</p>
+    </div>
+
+    <div class="acao">
+      <h3>♻️ Reciclagem</h3>
+      <p>Separe o lixo corretamente e reutilize materiais sempre que possível.</p>
+    </div>
+
+    <div class="acao">
+      <h3>🛍️ Consumo consciente</h3>
+      <p>Evite compras desnecessárias e prefira produtos sustentáveis.</p>
+    </div>
+
+    <div class="acao">
+      <h3>🌱 Plantio de árvores</h3>
+      <p>Plantar árvores ajuda a compensar emissões de CO₂.</p>
+    </div>
+
+  </div>
+</section>
+</div>
 
 </div>
 
